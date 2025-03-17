@@ -7,10 +7,10 @@ export default function Home() {
       <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-12">
         <div className="flex-1" data-aos="fade-right">
           <h1 className="text-5xl font-bold mb-6">
-            Hi, I'm <span className="text-blue-600">Vikash Kumar</span>
+            Hi, I'm <span className="text-blue-600">Ishu Rawat</span>
           </h1>
           <p className="text-xl text-gray-600 mb-8">
-            A passionate Frontend Developer crafting beautiful and functional web experiences
+            A developer.
           </p>
           <Link
             to="/projects"

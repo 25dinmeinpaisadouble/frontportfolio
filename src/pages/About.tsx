@@ -6,45 +6,41 @@ export default function About() {
         
         <div className="bg-white rounded-lg shadow-lg p-8 mb-8" data-aos="fade-up">
           <p className="text-lg text-gray-700 mb-6">
-            I'm a frontend developer, building modern web applications.
-            My journey in web development started with a passion for creating beautiful user interfaces
-            and has evolved into a deep understanding of modern frontend technologies.
+            Just a big foodie tbh.
           </p>
           
           <p className="text-lg text-gray-700">
-            I specialize in React.js and its ecosystem, with a strong focus on building scalable
-            and maintainable applications. I'm passionate about user experience, accessibility,
-            and writing clean, efficient code.
+            Other than that.. I like 2000's Bollywood comedy movies.
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="bg-white rounded-lg shadow-lg p-6" data-aos="fade-right">
-            <h3 className="text-xl font-bold mb-4">Education</h3>
-            <ul className="space-y-4">
-              <li>
-                <h4 className="font-semibold">Bachelor in Computer Science</h4>
-                <p className="text-gray-600">Visvesvaraya Technological University</p>
-                <p className="text-gray-500">2021 - 2025</p>
-              </li>
-            </ul>
-          </div>
-
           <div className="bg-white rounded-lg shadow-lg p-6" data-aos="fade-left">
             <h3 className="text-xl font-bold mb-4">Experience</h3>
             <ul className="space-y-4">
               <li>
-                <h4 className="font-semibold">Full Stack Developer Intern</h4>
-                <p className="text-gray-600">Dotch Endeavours</p>
-                <p className="text-gray-500">Sept-2023 to Nov-2023</p>
+                <h4 className="font-semibold">HCL Technologies</h4>
+                <p className="text-gray-600">Support Engineer</p>
+                <p className="text-gray-500">March-2022 to Nov-2022</p>
               </li>
               <li>
-               {/*  <h4 className="font-semibold">Frontend Developer</h4>
-                <p className="text-gray-600">Digital Agency XYZ</p>
-                <p className="text-gray-500">2017 - 2019</p> */}
+                {/* <h4 className="font-semibold">Software Developer Intern</h4>
+                <p className="text-gray-600">Google</p>
+                <p className="text-gray-500">Jan-2024 to Mar-2024</p> */}
               </li>
             </ul>
           </div>
+          <div className="bg-white rounded-lg shadow-lg p-6" data-aos="fade-right">
+            <h3 className="text-xl font-bold mb-4">Education</h3>
+            <ul className="space-y-4">
+              <li>
+                <h4 className="font-semibold">Bachelor of Computer Science</h4>
+                <p className="text-gray-600">University of New South Wales</p>
+                <p className="text-gray-500">2022 - 2025</p>
+              </li>
+            </ul>
+          </div>
+
         </div>
       </div>
     </div>

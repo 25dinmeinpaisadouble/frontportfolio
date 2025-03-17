@@ -33,8 +33,8 @@ export default function Sidebar() {
               alt="Profile"
               className="w-24 h-24 mx-auto rounded-full object-cover mb-4"
             />
-            <h2 className="text-xl font-bold">Vikash Kumar</h2>
-            <p className="text-gray-600">Frontend Developer</p>
+            <h2 className="text-xl font-bold">Ishu Rawat</h2>
+            <p className="text-gray-600">Developer</p>
           </div>
 
           <nav className="flex-1 px-4">
