@@ -22,6 +22,18 @@ const projects = [
   },
 ];
 
+const Projects: FC = () => {
+  return (
+    <div className="min-h-screen p-6 py-20">
+      <div className="max-w-4xl mx-auto">
+        <h2 className="text-4xl font-bold mb-8" data-aos="fade-down">
+          Coursework
+        </h2>
+      </div>
+    </div>
+  )
+}
+
 export default function Projects() {
   return (
     <div className="min-h-screen p-6 py-20">

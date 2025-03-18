@@ -1,6 +1,3 @@
-import { Code } from "lucide-react";
-
-// courseData.ts
 export interface Course {
   code: string;
   description: string;
