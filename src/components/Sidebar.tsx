@@ -20,7 +20,7 @@ interface SocialLink {
 const navItems: NavItem[] = [
   { path: '/', icon: Home, label: 'Home' },
   { path: '/about', icon: User, label: 'About' },
-  { path: '/skills', icon: Code2, label: 'Skills' },
+  { path: '/coursework', icon: Code2, label: 'Course Work' },
   { path: '/projects', icon: Briefcase, label: 'Projects' },
   { path: '/contact', icon: Mail, label: 'Contact' },
 ];

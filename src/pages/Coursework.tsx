@@ -63,7 +63,7 @@ const YearSection: FC<{year: string, terms: {termName: string, courses: Course[]
   );
 };
 
-const Courses: FC = () => {
+const Coursework: FC = () => {
   return (
     <div className="min-h-screen p-6 py-20">
       <div className="max-w-4xl mx-auto">
@@ -83,4 +83,4 @@ const Courses: FC = () => {
   );
 };
 
-export default Courses;
+export default Coursework;
