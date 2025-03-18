@@ -25,16 +25,14 @@ const CourseItem: FC<CourseItemProps> = ({ code, description, summary, isLast = 
 };
 
 interface TermSectionProps {
-  year: string;
-  term: string;
+  termName: string;
   courses: Course[];
 }
 
-const TermSection: FC<TermSectionProps> = ({ year, term, courses }) => {
+const TermSection: FC<TermSectionProps> = ({ termName, courses }) => {
   return (
-    <div>
-      <h3 className="text-2xl font-medium pb-4">{year}</h3>
-      <h5 className="ml-4 underline underline-offset-4 pb-1.5">{term}</h5>
+    <div className="mb-8">
+      <h5 className="ml-4 underline underline-offset-4 pb-1.5">{termName}</h5>
       <ol className="ml-6 relative border-s border-blue-100">
         {courses.map((course, index) => (
           <CourseItem
@@ -50,6 +48,21 @@ const TermSection: FC<TermSectionProps> = ({ year, term, courses }) => {
   );
 };
 
+const YearSection: FC<{year: string, terms: {termName: string, courses: Course[]}[]}> = ({ year, terms }) => {
+  return (
+    <div className="mb-12">
+      <h3 className="text-2xl font-medium pb-4">{year}</h3>
+      {terms.map((term) => (
+        <TermSection
+          key={`${year}-${term.termName}`}
+          termName={term.termName}
+          courses={term.courses}
+        />
+      ))}
+    </div>
+  );
+};
+
 const Courses: FC = () => {
   return (
     <div className="min-h-screen p-6 py-20">
@@ -58,12 +71,11 @@ const Courses: FC = () => {
           Coursework
         </h2>
 
-        {courseData.map((term, _) => (
-          <TermSection
-            key={`${term.year}-${term.term}`}
-            year={term.year}
-            term={term.term}
-            courses={term.courses}
+        {courseData.map((yearData) => (
+          <YearSection
+            key={yearData.year}
+            year={yearData.year}
+            terms={yearData.terms}
           />
         ))}
       </div>
