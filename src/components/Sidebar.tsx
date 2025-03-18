@@ -1,9 +1,23 @@
 import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import { Menu, X, Home, User, Code2, Briefcase, Mail, Github, Linkedin, Twitter } from 'lucide-react';
+import { Menu, X, Home, User, Code2, Briefcase, Mail, Linkedin } from 'lucide-react';
+import type { LucideIcon } from 'lucide-react';
 import ProfilePic from '../assets/profile-pic.jpg';
 
-const navItems = [
+interface NavItem {
+  path: string;
+  icon: LucideIcon;
+  label: string;
+}
+
+interface SocialLink {
+  url: string;
+  icon: LucideIcon;
+  label: string;
+  hoverColor: string;
+}
+
+const navItems: NavItem[] = [
   { path: '/', icon: Home, label: 'Home' },
   { path: '/about', icon: User, label: 'About' },
   { path: '/skills', icon: Code2, label: 'Skills' },
@@ -11,20 +25,62 @@ const navItems = [
   { path: '/contact', icon: Mail, label: 'Contact' },
 ];
 
-export default function Sidebar() {
+const socialLinks: SocialLink[] = [
+  { 
+    url: 'https://www.linkedin.com/in/ishu-rawat/', 
+    icon: Linkedin, 
+    label: 'LinkedIn',
+    hoverColor: 'hover:text-blue-700'
+  },
+  // change the flex box to justify-center when adding more social links
+];
+
+const NavItemComponent = ({ path, icon: Icon, label }: NavItem) => (
+  <NavLink
+    to={path}
+    className={({ isActive }) =>
+      `flex items-center px-4 py-3 mb-2 rounded-lg transition-colors ${
+        isActive ? 'bg-blue-50 text-blue-600' : 'text-gray-700 hover:bg-gray-100'
+      }`
+    }
+  >
+    <Icon size={20} className="mr-3" />
+    {label}
+  </NavLink>
+);
+
+const SocialLinkComponent = ({ url, icon: Icon, label, hoverColor }: SocialLink) => (
+  <a
+    href={url}
+    target="_blank"
+    rel="noopener noreferrer"
+    aria-label={label}
+    className={`text-gray-600 ${hoverColor}`}
+  >
+    <Icon size={20} />
+  </a>
+);
+
+const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
+
+  const toggleSidebar = () => setIsOpen(!isOpen);
+  const closeSidebar = () => setIsOpen(false);
 
   return (
     <>
       <button
-        onClick={() => setIsOpen(!isOpen)}
+        onClick={toggleSidebar}
         className="fixed top-4 left-8 z-50 p-2 bg-white rounded-lg shadow-lg md:hidden"
+        aria-label={isOpen ? "Close sidebar" : "Open sidebar"}
       >
         {isOpen ? <X size={24} /> : <Menu size={24} />}
       </button>
 
       <aside
-        className={`fixed inset-y-0 left-0 z-40 w-64 bg-white border-r transform transition-transform duration-300 ease-in-out ${isOpen ? 'translate-x-0' : '-translate-x-full'} md:translate-x-0`}
+        className={`fixed inset-y-0 left-0 z-40 w-64 bg-white border-r transform transition-transform duration-300 ease-in-out ${
+          isOpen ? 'translate-x-0' : '-translate-x-full'
+        } md:translate-x-0`}
       >
         <div className="flex flex-col h-full">
           <div className="p-6 text-center">
@@ -38,51 +94,24 @@ export default function Sidebar() {
           </div>
 
           <nav className="flex-1 px-4">
-            {navItems.map(({ path, icon: Icon, label }) => (
-              <NavLink
-                key={path}
-                to={path}
-                className={({ isActive }) =>
-                  `flex items-center px-4 py-3 mb-2 rounded-lg transition-colors ${isActive ? 'bg-blue-50 text-blue-600' : 'text-gray-700 hover:bg-gray-100'}`
-                }
-                onClick={() => setIsOpen(false)}
-              >
-                <Icon size={20} className="mr-3" />
-                {label}
-              </NavLink>
+            {navItems.map((item) => (
+              <div key={item.path} onClick={closeSidebar}>
+                <NavItemComponent {...item} />
+              </div>
             ))}
           </nav>
 
-          <div className="p-6 border-t flex justify-between items-center">
-            <div className="flex justify-center space-x-4 mt-2">
-              <a
-                href="https://github.com/becodewala-youtube"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gray-600 hover:text-gray-900"
-              >
-                <Github size={20} />
-              </a>
-              <a
-                href="https://www.linkedin.com/in/vikash-kumar-becodewala/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gray-600 hover:text-gray-900"
-              >
-                <Linkedin size={20} />
-              </a>
-              <a
-                href="https://x.com/becodewala"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gray-600 hover:text-gray-900"
-              >
-                <Twitter size={20} />
-              </a>
+          <div className="p-6 border-t">
+            <div className="flex space-x-4">
+              {socialLinks.map((link, index) => (
+                <SocialLinkComponent key={index} {...link} />
+              ))}
             </div>
           </div>
         </div>
       </aside>
     </>
   );
-}
+};
+
+export default Sidebar;
