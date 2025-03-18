@@ -31,7 +31,7 @@ export default function Sidebar() {
             <img
               src={ProfilePic}
               alt="Profile"
-              className="w-24 h-24 mx-auto rounded-full object-cover mb-4"
+              className="w-24.05 h-24.05 mx-auto rounded-full object-cover mb-4"
             />
             <h2 className="text-xl font-bold">Ishu Rawat</h2>
             <p className="text-gray-600">Developer</p>

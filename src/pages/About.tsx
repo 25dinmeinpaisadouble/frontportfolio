@@ -6,7 +6,7 @@ export default function About() {
         
         <div className="bg-white rounded-lg shadow-lg p-8 mb-8" data-aos="fade-up">
           <p className="text-lg text-gray-700 mb-6">
-            Just a big foodie tbh.
+            Big foodie.
           </p>
           
           <p className="text-lg text-gray-700">

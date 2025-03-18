@@ -1,36 +1,132 @@
 import { Mail, MapPin } from 'lucide-react';
-import { useRef, useState } from 'react';
-import emailjs from '@emailjs/browser';
+import { useForm, ValidationError } from '@formspree/react';
+import { useState } from 'react';
 
-export default function Contact() {
-  // Declare state for success message
-  const [messageSent, setMessageSent] = useState(false);
+const card = "bg-white rounded-lg shadow-lg p-6 mb-8"
 
-  // Reference for the form
-  const form = useRef<HTMLFormElement | null>(null);
+function Location() {
 
-  // Handle form submission
-  const sendEmail = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  return (
+    <div className={card}>
+      <h3 className="text-xl font-bold mb-6">Contact Information</h3>
+        <div className="space-y-4">
+          <div className="flex items-center">
+            <Mail className="w-5 h-5 text-blue-600 mr-3" />
+            <span>ishu.rawat000@gmail.com</span>
+          </div>
+                
+          <div className="flex items-center">
+            <MapPin className="w-5 h-5 text-blue-600 mr-3" />
+            <span>Sydney, Australia</span>
+          </div>
+        </div>
+    </div>
+  )
+}
 
-    if (form.current) {
-      emailjs
-        .sendForm(import.meta.env.VITE_SERVICE_ID, import.meta.env.VITE_TEMPLATE_ID, form.current, {
-          publicKey: import.meta.env.VITE_API_KEY,
-        })
-        .then(
-          () => {
-            setMessageSent(true); // Set success message state
-            console.log('SUCCESS!');
-          },
-          (error) => {
-            console.log('FAILED...', error.text);
-            setMessageSent(false); // Ensure failure resets success message
-          }
-        );
+function ContactForm() {
+  const [showForm, setShowForm] = useState(true);
+  const [state, handleSubmit] = useForm("xanenlvj");
+  
+  if (state.succeeded && !showForm) {
+      return (
+        <div className='flex flex-col items-center gap-5'>
+          <p>Thanks for submitting!</p>
+          <div className='bg-white'>
+            <button 
+              type='button' 
+              className='bg-blue-600 w-full mx-auto text-white rounded-lg px-4 py-2 hover:bg-blue-700 transition-colors'
+              onClick={() => {
+                // reset form
+                setShowForm(true);
+              }}>
+                Submit another enquiry!
+            </button>
+          </div>
+        </div>
+      );
+  }
+
+  const formHolders = "block text-sm font-medium text-gray-700 mb-1";
+  const formInput = "w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent";
+
+  const onSubmit = async (e) => {
+    await handleSubmit(e);
+    // After submission, hide the form and show success message
+    if (state.succeeded) {
+      setShowForm(false);
     }
   };
 
+  return (
+    <form onSubmit={onSubmit}>
+      <div className={card}>
+        <div className='mb-4'>
+          <label htmlFor="name" className={formHolders}>
+            Name
+          </label>
+          <input
+            className={formInput}
+            id="name"
+            type="text" 
+            name="name"
+            required
+          />
+          <ValidationError
+            prefix="Name" 
+            field="name"
+            errors={state.errors}
+          />
+        </div>
+        <div className='mb-4'>
+          <label htmlFor="email" className={formHolders}>
+            Email Address
+          </label>
+          <input
+            className={formInput}
+            id="email"
+            type="email" 
+            name="email"
+            required
+          />
+          <ValidationError 
+            prefix="Email" 
+            field="email"
+            errors={state.errors}
+          />
+        </div>
+        <div className='mb-4'>
+          <label htmlFor="message" className={formHolders}>
+            Message
+          </label>
+          <textarea
+            className={formInput}
+            id="message"
+            name="message"
+            required
+          />
+          <ValidationError 
+            prefix="Message" 
+            field="message"
+            errors={state.errors}
+          />
+        </div>
+
+        <div className='flex justify-center'>
+          <button 
+            type="submit" 
+            disabled={state.submitting}
+            className='bg-blue-600 w-full mx-auto text-white rounded-lg px-4 py-2 hover:bg-blue-700 transition-colors'
+          >
+            Submit
+          </button>
+        </div>
+      </div>
+    </form>
+  );
+}
+
+export default function Contact() {
   return (
     <div className="min-h-screen p-6 py-20">
       <div className="max-w-4xl mx-auto">
@@ -40,90 +136,12 @@ export default function Contact() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           <div data-aos="fade-right">
-            <div className="bg-white rounded-lg shadow-lg p-6 mb-8">
-              <h3 className="text-xl font-bold mb-6">Contact Information</h3>
-              <div className="space-y-4">
-                <div className="flex items-center">
-                  <Mail className="w-5 h-5 text-blue-600 mr-3" />
-                  <span>kvikash74673@gmail.com</span>
-                </div>
-                
-                <div className="flex items-center">
-                  <MapPin className="w-5 h-5 text-blue-600 mr-3" />
-                  <span>Bangalore, India</span>
-                </div>
-              </div>
-            </div>
+            <Location />
           </div>
 
-          <form
-            ref={form}
-            onSubmit={sendEmail}
-            className="space-y-6"
-            data-aos="fade-left"
-          >
-            <div>
-              <label
-                htmlFor="name"
-                className="block text-sm font-medium text-gray-700 mb-1"
-              >
-                Name
-              </label>
-              <input
-                type="text"
-                id="name"
-                name="from_name"
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                required
-              />
-            </div>
-
-            <div>
-              <label
-                htmlFor="email"
-                className="block text-sm font-medium text-gray-700 mb-1"
-              >
-                Email
-              </label>
-              <input
-                type="email"
-                id="email"
-                name="email_id"
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                required
-              />
-            </div>
-
-            <div>
-              <label
-                htmlFor="message"
-                className="block text-sm font-medium text-gray-700 mb-1"
-              >
-                Message
-              </label>
-              <textarea
-                id="message"
-                name="message"
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                required
-              ></textarea>
-            </div>
-            {messageSent && (
-            <div className="mt-4 text-center text-green-600 font-semibold">
-              Your message has been sent successfully!
-            </div>
-          )}
-            <button
-              type="submit"
-              className="w-full px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
-              value="Send"
-            >
-              Send Message
-            </button>
-          </form>
-
-          {/* Show success message when email is sent */}
-         
+          <div data-aos="fade-left">
+            <ContactForm />
+          </div>
         </div>
       </div>
     </div>
