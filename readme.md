@@ -1,4 +1,2 @@
-## **Click on below image to watch tutorial** 👇
+## **Contains a summary of my Uni Courses and Experience** 👇
 
-
-[![youtube](https://img.youtube.com/vi/OUO_WTMp27w/0.jpg)](https://www.youtube.com/watch?v=OUO_WTMp27w)
